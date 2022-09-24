@@ -10,7 +10,7 @@ class UserAdmin(BaseUserAdmin):
     add_form = CustomerUserCreationForm
     form = CustomerUserChangeForm
     model = User
-    list_display = ['id', 'email', 'username', 'first_name', 'last_name', 'role', 'is_staff', 'is_active']
+    list_display = ['id', 'email', 'username', 'first_name', 'last_name', 'role', 'is_active']
     list_display_links = ['id', 'email']
     list_filter = ['email', 'username', 'first_name', 'last_name', 'is_staff', 'is_active']
     fieldsets = (

@@ -36,7 +36,6 @@ INSTALLED_APPS = [
 
     #LocalApps
     'accounts',
-    'core',
     'vendor',
 ]
 
