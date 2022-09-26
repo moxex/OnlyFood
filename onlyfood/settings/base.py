@@ -132,6 +132,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
+
 """
 Django loggers, this helps me with all logs on the log file of the projects,
 got the idea from docs.
