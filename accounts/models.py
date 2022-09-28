@@ -48,7 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 
-
 class Gender(models.TextChoices):
     MALE = 'Male', _('Male')
     FEMALE = 'Female', _('Female')
@@ -63,8 +62,7 @@ class Profile(models.Model):
                                         blank=True, null=True)
     gender = models.CharField(verbose_name=_('Gender'), choices=Gender.choices, 
                                 default=Gender.OTHER, max_length=20)
-    address_line_1 = models.CharField(verbose_name=_('Adress Line 1'), max_length=100, blank=False, null=False)
-    address_line_2 = models.CharField(verbose_name=_('Adress Line 2'), max_length=100, blank=True, null=True)
+    address = models.CharField(verbose_name=_('Adress'), max_length=250, blank=True, null=True)
     country = models.CharField(verbose_name=_('Country'), default='Nigeria', max_length=100, blank=False, null=False)
     state = models.CharField(verbose_name=_('State'), default='Kano', max_length=50, blank=False, null=False)
     city = models.CharField(verbose_name=_('City'), max_length=180, 
@@ -74,6 +72,8 @@ class Profile(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(default=timezone.now)
 
+    # def full_address(self):
+    #     return f'{self.address_line_1}, {self.address_line_2}'
 
     def __str__(self):
         return f"{self.user.username}'s profile"

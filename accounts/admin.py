@@ -64,7 +64,7 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(User, UserAdmin)
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'gender', 'address_line_1', 'country', 'state']
+    list_display = ['id', 'user', 'gender', 'address', 'country', 'state']
     list_filter = ['gender', 'country', 'state' ]
     list_display_links = ['id', 'user']
 
