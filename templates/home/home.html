@@ -6,7 +6,7 @@
 		<div class="main-section">
 			<!-- Home Pages Elements Strat -->
 			<!-- Main Search Start -->
-			<div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({%static 'assets/extra-images/bg-image1.jpg' %}) no-repeat center / cover;">
+			<div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({%static 'extra-images/bg-image1.jpg' %}) no-repeat center / cover;">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -322,46 +322,17 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0 !important; padding-left: 0 !important">
 							<div class="company-logo">
 								<ul>
+									{% for vendor in vendors %}
 									<li class="has-border">
 										<figure>
-											<a href="#"><img src="{%static 'assets/extra-images/listing-logo18.png' %}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% if vendor.profile.profile_photo %}
+											<a href="#"><img src="{{ vendor.profile.profile_photo.url }}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% else %}
+											<a href="#"><img src="{% static 'images/default-profile.png' %}" class="attachment-full size-full wp-post-image" alt=""></a>
+											{% endif %}
 										</figure>
 									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="{%static 'assets/extra-images/fb-restaurant-02.jpg' %}" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-04.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-06.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/xlisting-logo03.png.pagespeed.ic_.aT-o9LinEJ.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo18.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
-									<li class="has-border">
-										<figure>
-											<a href="#"><img src="assets/extra-images/fb-restaurant-09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-										</figure>
-									</li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
@@ -382,29 +353,36 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="listing fancy">
 								<ul class="row">
+									{% for vendor in vendors %}
 									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<div class="list-post featured">
 											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/listing-logo18.png" class="img-thumb wp-post-image" alt=""></a></figure>
+												<figure>
+													<a href="#">
+														{% if vendor.profile.profile_photo %}
+														<img src="{{ vendor.profile.profile_photo.url }}" class="img-thumb wp-post-image" alt="">
+														{% else %}
+														<img src="{% static 'images/default-profile.png' %}" class="img-thumb wp-post-image" alt="">
+														{% endif %}
+													</a>
+												</figure>
 												<span class="restaurant-status close">
 													<em class="bookmarkRibbon"></em>Close
 												</span>
 											</div>
 											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
+												
 												<div class="post-title">
 													<h5>
-														<a href="#">Restaurant Demo</a>
-														<span class="sponsored text-color">Sponsored</span>
+														<a href="#">{{ vendor }}</a>
+														
 													</h5>
 												</div>
-												<address> <span>Type of food : </span> Apple Juice</address>
-												<div class="delivery-potions">
+												{% if vendor.profile.city and vendor.profile.state %}
+												<span>{{ vendor.profile.city }}, {{ vendor.profile.state }}</span>
+												{% endif %}
+												<!-- <address> <span>Type of food : </span> Apple Juice</address> -->
+												<!-- <div class="delivery-potions">
 													<div class="post-time">
 														<i class="icon-motorcycle"></i>
 														<div class="time-tooltip">
@@ -415,17 +393,8 @@
 																	minutes.</b> </div>
 														</div>
 													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Totnes</span>
-												</div>
+													
+												</div> -->
 											</div>
 											<div class="list-option">
 												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
@@ -434,274 +403,7 @@
 											</div>
 										</div>
 									</li>
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/fb-restaurant-01.jpg" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status close">
-													<em class="bookmarkRibbon"></em>Close
-												</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="#">Jet’s Kitchen</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Chines Soup, Egg Fry,
-													Fish Fry
-												</address>
-												<div class="delivery-potions">
-													<div class="post-time">
-														<i class="icon-motorcycle"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Delivery
-																	time</b>
-																<b class="tooltip-info">Your order will be
-																	delivered in 10
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Totnes</span>
-												</div>
-											</div>
-											<div class="list-option">
-												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
-													<i class="icon-heart-o"></i>
-												</a>
-											</div>
-										</div>
-									</li>
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/fb-restaurant-04.jpg" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status close">
-													<em class="bookmarkRibbon"></em>Close
-												</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="#">Golden Chick Fries</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Doughnut, Hot Dogs, Ice
-													Cream
-												</address>
-												<div class="delivery-potions">
-													<div class="post-time">
-														<i class="icon-motorcycle"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Delivery
-																	time</b>
-																<b class="tooltip-info">Your order will be
-																	delivered in 10
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Totnes</span>
-												</div>
-											</div>
-											<div class="list-option">
-												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
-													<i class="icon-heart-o"></i>
-												</a>
-											</div>
-										</div>
-									</li>
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/fb-restaurant-06.jpg" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="#">Dragon Express</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Apple Juice, Carrot
-													Juice, Ice Cream
-												</address>
-												<div class="delivery-potions">
-													<div class="post-time">
-														<i class="icon-motorcycle"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Delivery
-																	time</b>
-																<b class="tooltip-info">Your order will be
-																	delivered in 10
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Bristol</span>
-												</div>
-											</div>
-											<div class="list-option">
-												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
-													<i class="icon-heart-o"></i>
-												</a>
-											</div>
-										</div>
-									</li>
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/xlisting-logo03.png.pagespeed.ic_.aT-o9LinEJ.png" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status close">
-													<em class="bookmarkRibbon"></em>Close
-												</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="#">Nature Healthy Food</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Apple Juice, Chicken
-													Roast, Chines
-													Soup, Magi</address>
-												<div class="delivery-potions">
-													<div class="post-time">
-														<i class="icon-motorcycle"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Delivery
-																	time</b>
-																<b class="tooltip-info">Your order will be
-																	delivered in 10
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Totnes</span>
-												</div>
-											</div>
-											<div class="list-option">
-												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
-													<i class="icon-heart-o"></i>
-												</a>
-											</div>
-										</div>
-									</li>
-									<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-										<div class="list-post featured">
-											<div class="img-holder">
-												<figure><a href="#"><img src="assets/extra-images/listing-logo09.png" class="img-thumb wp-post-image" alt=""></a></figure>
-												<span class="restaurant-status open">
-													<em class="bookmarkRibbon"></em>open
-												</span>
-											</div>
-											<div class="text-holder">
-												<div class="list-rating">
-													<div class="rating-star">
-														<span class="rating-box" style="width: 100%;"></span>
-													</div>
-													<span class="reviews">(1)</span>
-												</div>
-												<div class="post-title">
-													<h5>
-														<a href="#">Menu & Drinks</a>
-														<span class="sponsored text-color">Sponsored</span>
-													</h5>
-												</div>
-												<address> <span>Type of food : </span> Chicken Roast, Chines
-													Soup, Cold
-													Coffee, Cold Drink, Hot Dogs</address>
-												<div class="delivery-potions">
-													<div class="post-time">
-														<i class="icon-motorcycle"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Delivery
-																	time</b>
-																<b class="tooltip-info">Your order will be
-																	delivered in 10
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<div class="post-time">
-														<i class="icon-clock4"></i>
-														<div class="time-tooltip">
-															<div class="time-tooltip-holder"> <b class="tooltip-label">Pickup time</b>
-																<b class="tooltip-info">You can pickup order in
-																	15
-																	minutes.</b> </div>
-														</div>
-													</div>
-													<span>Acle</span>
-												</div>
-											</div>
-											<div class="list-option">
-												<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
-													<i class="icon-heart-o"></i>
-												</a>
-											</div>
-										</div>
-									</li>
+									{% endfor %}
 								</ul>
 							</div>
 						</div>
@@ -727,7 +429,7 @@
 												you folks
 												make that part of my life easy.</p>
 											<div class="img-holder">
-												<figure><img src="assets/extra-images/testimonial-img1.jpg" alt=""></figure>
+												<figure><img src="{%static 'assets/extra-images/testimonial-img1.jpg' %}" alt=""></figure>
 											</div>
 											<div class="author-detail">
 												<div class="auther-name"><span>@mangafox</span></div>
@@ -740,7 +442,7 @@
 												order food and
 												not have to talk to anyone.</p>
 											<div class="img-holder">
-												<figure><img src="assets/extra-images/testimonial-img2.jpg" alt=""></figure>
+												<figure><img src="{%static 'assets/extra-images/testimonial-img2.jpg' %}" alt=""></figure>
 											</div>
 											<div class="author-detail">
 												<div class="auther-name"><span>@mangafox</span></div>
@@ -753,7 +455,7 @@
 												amazing and
 												worth it for!</p>
 											<div class="img-holder">
-												<figure><img src="assets/extra-images/testimonial-img3.jpg" alt=""></figure>
+												<figure><img src="{%static 'assets/extra-images/testimonial-img3.jpg' %}" alt=""></figure>
 											</div>
 											<div class="author-detail">
 												<div class="auther-name"><span>@ReddPhoeno</span></div>
@@ -766,7 +468,7 @@
 												order food and
 												get it to our office in a jiffy. FOOD!</p>
 											<div class="img-holder">
-												<figure><img src="assets/extra-images/testimonial-img4.jpg" alt=""></figure>
+												<figure><img src="{%static 'assets/extra-images/testimonial-img4.jpg' %}" alt=""></figure>
 											</div>
 											<div class="author-detail">
 												<div class="auther-name"><span>@HubWub</span></div>
@@ -787,17 +489,17 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="main-post promo-box">
 								<div class="img-frame">
-									<figure><img src="assets/extra-images/main-post-img-1.png" alt="#">
+									<figure><img src="{% static 'assets/extra-images/main-post-img-1.png' %}" alt="#">
 									</figure>
 								</div>
 								<div class="column-text">
-									<h3 style="color:#000000 !important;">FoodBakery in your mobile! Get our app
+									<h3 style="color:#000000 !important;">OnlyFood in your mobile! Get our app
 									</h3>
 									<div class="promo-content">Get our app, it's the fastest way to order food
 										on the go.
 									</div>
-									<a class="app-btn" href="#"><img src="assets/extra-images/app-img1-1.png" alt=""></a>
-									<a class="app-btn" href=""><img src="assets/extra-images/app-img2-1.png" alt=""></a>
+									<a class="app-btn" href="#"><img src="{% static 'assets/extra-images/app-img1-1.png' %}" alt=""></a>
+									<a class="app-btn" href=""><img src="{% static 'assets/extra-images/app-img2-1.png' %}" alt=""></a>
 									<form>
 										<div class="field-holder"><input class="field-input" type="email" placeholder="Your Email">
 											<label class="field-label-btn"><input class="field-btn" type="submit" value="Send Link"></label>
@@ -818,28 +520,28 @@
 							<div class="company-logo simple">
 								<ul>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-1.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-1.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-2.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-2.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-3.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-3.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-4.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-4.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-5.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-5.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-6.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-6.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-7.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-7.png' %}" alt=""></a></figure>
 									</li>
 									<li>
-										<figure><a href="#"><img src="assets/extra-images/fb-clients-8.png" alt=""></a></figure>
+										<figure><a href="#"><img src="{%static 'assets/extra-images/fb-clients-8.png' %}" alt=""></a></figure>
 									</li>
 								</ul>
 							</div>

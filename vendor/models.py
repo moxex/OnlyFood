@@ -7,6 +7,7 @@ class Vendor(models.Model):
     user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
     profile = models.OneToOneField(Profile, related_name='profile', on_delete=models.CASCADE)
     vendor_name = models.CharField(verbose_name=_('Vendor Name'), max_length=100)
+    vendor_slug = models.SlugField(max_length=100, unique=True)
     vendor_license = models.ImageField(upload_to='vendor/license')
     is_approved = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -19,10 +20,11 @@ class Vendor(models.Model):
         if self.pk is not None:
             orig = Vendor.objects.get(pk=self.pk)
             if orig.is_approved != self.is_approved:
-                mail_template = 'accounts/email/admin_approval_email.html'
+                mail_template = 'accounts/emails/admin_approval_email.html'
                 context = {
                     'user': self.user,
                     'is_approved': self.is_approved,
+                    'to_email': self.user.email,
                 }
                 if self.is_approved == True:
                     #send notification email

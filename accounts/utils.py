@@ -5,6 +5,7 @@ from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.conf import settings
+from onlyfood.settings import development
 
 def detectUser(user):
     if user.role == 1:
@@ -18,7 +19,7 @@ def detectUser(user):
         return redirecturl
 
 def send_verification_email(request, user, mail_subject, email_template):
-    from_email = settings.development.DEFAULT_FROM_EMAIL
+    from_email = development.DEFAULT_FROM_EMAIL
     current_site = get_current_site(request)
     message = render_to_string(email_template, {
         'user': user,
@@ -32,9 +33,8 @@ def send_verification_email(request, user, mail_subject, email_template):
     mail.send()
 
 
-
 def send_notification(mail_subject, mail_template, context):
-    from_email = settings.development.DEFAULT_FROM_EMAIL
+    from_email = development.DEFAULT_FROM_EMAIL
     message = render_to_string(mail_template, context)
     if(isinstance(context['to_email'], str)):
         to_email = []

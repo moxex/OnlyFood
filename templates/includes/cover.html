@@ -17,8 +17,10 @@
                         <div class="text-holder">
                             <span class="restaurant-title">{{vendor.vendor_name}}</span>
                             <div class="text">
+                                {% if vendor.profile.address %}
                                 <i class="icon-location"></i>
                                 <p>{{vendor.profile.address}}</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
